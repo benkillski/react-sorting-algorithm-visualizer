@@ -1,3 +1,34 @@
+export function getBubbleSortAnimations(array) {
+    const animations = [];
+    if (array.length <= 1) return array;
+    const auxiliaryArray = array.slice();
+    bubbleSortHelper(array, animations);
+    return animations;
+}
+
+function bubbleSortHelper(array, animations) {
+    for(var i = 0; i <= array.length-1; i++){
+        // Last i elements are already in place
+        for(var j = 0; j < ( array.length - i -1); j++){
+
+            // Comparing two adjacent numbers 
+            // and see if first is greater than second
+            if(array[j] > array[j+1]){
+                animations.push([array[j], array[j + 1]]);
+
+                animations.push([array[j], array[j + 1]]);
+
+            // Swap them if the condition is true 
+            var temp = array[j];
+            array[j] = array[j + 1];
+            array[j+1] = temp;
+            }
+        }
+    }
+}
+
+
+
 export function getMergeSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return array;

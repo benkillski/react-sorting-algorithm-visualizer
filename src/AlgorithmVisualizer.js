@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import AlgorithmMenu from './AlgorithmMenu';
-import { getMergeSortAnimations } from "./Algorithms";
+import {getBubbleSortAnimations, getMergeSortAnimations} from "./Algorithms";
 
 const ALGORITHM_OPTIONS = [
     "Bubble",
@@ -81,6 +81,27 @@ export default function AlgorithmVisualizer(props) {
     }
 
     function bubbleSort() {
+        const animations = getBubbleSortAnimations(mainArray);
+        for (let i = 0; i < animations.length; i++) {
+          const arrayBars = document.getElementsByClassName('element-bar');
+          const isColorChange = i % 3 !== 2;
+          if (isColorChange) {
+            const [barOneIdx, barTwoIdx] = animations[i];
+            const barOneStyle = arrayBars[barOneIdx].style;
+            const barTwoStyle = arrayBars[barTwoIdx].style;
+            const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+            setTimeout(() => {
+              barOneStyle.backgroundColor = color;
+              barTwoStyle.backgroundColor = color;
+            }, i * ANIMATION_SPEED_MS);
+          } else {
+            setTimeout(() => {
+              const [barOneIdx, newHeight] = animations[i];
+              const barOneStyle = arrayBars[barOneIdx].style;
+              barOneStyle.height = `${newHeight}px`;
+            }, i * ANIMATION_SPEED_MS);
+          }
+        }
     }
 
     function selectionSort() {
@@ -88,7 +109,6 @@ export default function AlgorithmVisualizer(props) {
     }
 
     function mergeSort() {
-        console.log("merger sort ran");
         const animations = getMergeSortAnimations(mainArray);
         for (let i = 0; i < animations.length; i++) {
           const arrayBars = document.getElementsByClassName('element-bar');
