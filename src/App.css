@@ -21,7 +21,7 @@ html {
 
 .element-bar {
   margin: 0 1px;
-  width: 5px;
+  width: 10px;
   display: inline-block;
   background-color: white;
 }
