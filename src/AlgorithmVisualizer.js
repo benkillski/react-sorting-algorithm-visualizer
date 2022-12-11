@@ -1,6 +1,11 @@
-import {useState, useEffect} from "react";
 import AlgorithmMenu from './AlgorithmMenu';
-import {getBubbleSortAnimations, getSelectionSortAnimations, getMergeSortAnimations} from "./Algorithms";
+import {
+        getBubbleSortAnimations, 
+        getSelectionSortAnimations, 
+        getInsertionSortAnimations, 
+        getMergeSortAnimations
+} from "./Algorithms";
+import {useState, useEffect} from "react";
 
 const ALGORITHM_OPTIONS = [
     "Bubble",
@@ -30,7 +35,7 @@ const ALGORITHM_OPTIONS = [
 const ANIMATION_SPEED_MS = 100;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 310;
+const NUMBER_OF_ARRAY_BARS = 100;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'white';
@@ -38,14 +43,16 @@ const PRIMARY_COLOR = 'white';
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
 
-export default function AlgorithmVisualizer(props) {
+const TERTIARY_COLOR = 'green';
+
+export default function AlgorithmVisualizer() {
 
     const [mainArray, setMainArray] = useState([]);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState([ALGORITHM_OPTIONS[0]]);
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState(ALGORITHM_OPTIONS[0]);
 
     function generateArray() {
         let array = [];
-        for(let i = 0; i < 100; i++) {
+        for(let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
             array.push(Math.floor(Math.random() * 700) + 1);
         }
         setMainArray(array);
@@ -109,12 +116,9 @@ export default function AlgorithmVisualizer(props) {
 
     function selectionSort() {
       const animations = getSelectionSortAnimations(mainArray);
-      console.log(animations);
 
       var offsetColorChange = 0;
       for (let i = 0; i < animations.length; i++) {   // Loop through all animation steps
-        console.log(i);
-        console.log(animations[i])
         const arrayBars = document.getElementsByClassName('element-bar');   // Get all element bar DOM elements
         if (animations[i] !== -1 && animations[i - 1] !== -1 && animations[i - 2] !== -1) {
           const [barOneIdx, barTwoIdx] = animations[i];
@@ -147,33 +151,19 @@ export default function AlgorithmVisualizer(props) {
 
     function insertionSort() {
       const animations = getInsertionSortAnimations(mainArray);
-      console.log(animations);
 
-      var offsetColorChange = 0;
       for (let i = 0; i < animations.length; i++) {   // Loop through all animation steps
-        console.log(i);
-        console.log(animations[i])
         const arrayBars = document.getElementsByClassName('element-bar');   // Get all element bar DOM elements
-        if (animations[i] !== -1 && animations[i - 1] !== -1 && animations[i - 2] !== -1) {
+        if (animations[i][2] === "compare") {
           const [barOneIdx, barTwoIdx] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           const barTwoStyle = arrayBars[barTwoIdx].style;
-          const color = (i % 2 === offsetColorChange) ? SECONDARY_COLOR : PRIMARY_COLOR;
+          const color = animations[i + 1][2] === "compare" ? SECONDARY_COLOR : PRIMARY_COLOR;
           setTimeout(() => {
             barOneStyle.backgroundColor = color;
             barTwoStyle.backgroundColor = color;
           }, i * ANIMATION_SPEED_MS);
         } else {
-          if (animations[i] === -1)
-          {
-            i++;
-            
-            if (offsetColorChange === 0)
-              offsetColorChange = 1;
-            else 
-              offsetColorChange = 0;
-          }
-
           setTimeout(() => {
             const [barOneIdx, newHeight] = animations[i];
             const barOneStyle = arrayBars[barOneIdx].style;
