@@ -175,3 +175,71 @@ function doMerge(
     mainArray[k++] = auxiliaryArray[j++];
   }
 }
+
+
+
+export function getHeapSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  heapSortHelper(array, animations);
+  return animations;
+}
+
+function heapSortHelper(array, animations)
+{
+  var N = array.length;
+
+  // Build heap (rearrange array)
+  for (var i = Math.floor(N / 2) - 1; i >= 0; i--)
+    heapify(array, N, i, animations);
+
+  // One by one extract an element from heap
+  for (var i = N - 1; i > 0; i--) {
+    // Move current root to end
+    var temp = array[0];
+    animations.push([0, array[i], "swap"]);
+    animations.push([i, temp, "swap"]);
+    array[0] = array[i];
+    array[i] = temp;
+
+    // call max heapify on the reduced heap
+    heapify(array, i, 0, animations);
+  }
+}
+
+ // To heapify a subtree rooted with node i which is
+// an index in arr[]. n is size of heap
+function heapify(array, N, i, animations)
+{
+  var largest = i; // Initialize largest as root
+  var l = 2 * i + 1; // left = 2*i + 1
+  var r = 2 * i + 2; // right = 2*i + 2
+
+  // If left child is larger than root
+  if (l < N && array[l] > array[largest]) {
+    animations.push([l, largest, "compare"]);
+    animations.push([l, largest, "uncompare"]);
+
+    largest = l;
+  }
+
+  // If right child is larger than largest so far
+  if (r < N && array[r] > array[largest]) {
+    animations.push([r, largest, "compare"]);
+    animations.push([r, largest, "uncompare"]);
+
+    largest = r;
+  }
+
+  // If largest is not root
+  if (largest !== i) {
+      var swap = array[i];
+      animations.push([i, array[largest], "swap"]);
+      animations.push([largest, swap, "swap"]);
+      array[i] = array[largest];
+      array[largest] = swap;
+
+      // Recursively heapify the affected sub-tree
+      heapify(array, N, largest, animations);
+  }
+}
