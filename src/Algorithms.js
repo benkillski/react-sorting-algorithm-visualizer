@@ -1,3 +1,5 @@
+import { AnimationSharp } from "@mui/icons-material";
+
 export function getBubbleSortAnimations(array) {
     const animations = [];
     if (array.length <= 1) return array;
@@ -242,4 +244,70 @@ function heapify(array, N, i, animations)
       // Recursively heapify the affected sub-tree
       heapify(array, N, largest, animations);
   }
+}
+
+
+
+export function getQuickSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  quickSortHelper(array, 0, array.length - 1, animations);
+  return animations;
+}
+
+function quickSortHelper(array, low, high, animations)
+{
+  if (low < high) {
+  
+    // pi is partitioning index, arr[p]
+    // is now at right place 
+    let pi = partition(array, low, high, animations);
+
+    // Separately sort elements before
+    // partition and after partition
+    quickSortHelper(array, low, pi - 1, animations);
+    quickSortHelper(array, pi + 1, high, animations);
+  }
+}
+
+/* This function takes last element as pivot, places
+  the pivot element at its correct position in sorted
+  array, and places all smaller (smaller than pivot)
+  to left of pivot and all greater elements to right
+  of pivot */
+  function partition(array, low, high, animations) {
+
+  // pivot
+  let pivot = array[high];
+
+  // Index of smaller element and
+  // indicates the right position
+  // of pivot found so far
+  let i = (low - 1);
+
+  for (let j = low; j <= high - 1; j++) {
+
+    // If current element is smaller 
+    // than the pivot
+    if (array[j] < pivot) {
+      animations.push([j, j, "compare"]);
+      animations.push([j, j, "uncompare"]);
+
+      // Increment index of 
+      // smaller element
+      i++;
+      swap(array, i, j, animations);
+    }
+  }
+  swap(array, i + 1, high, animations);
+  return (i + 1);
+}
+
+// A utility function to swap two elements
+function swap(array, i, j, animations) {
+  let temp = array[i];
+  animations.push([i, array[j], "swap"]);
+  animations.push([j, temp, "swap"]);
+  array[i] = array[j];
+  array[j] = temp;
 }

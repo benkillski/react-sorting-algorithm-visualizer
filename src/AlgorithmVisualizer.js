@@ -4,7 +4,8 @@ import {
         getSelectionSortAnimations, 
         getInsertionSortAnimations, 
         getMergeSortAnimations,
-        getHeapSortAnimations
+        getHeapSortAnimations,
+        getQuickSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -33,7 +34,7 @@ const ALGORITHM_OPTIONS = [
 ];
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 100;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 200;
@@ -186,28 +187,28 @@ export default function AlgorithmVisualizer() {
     }
 
     function mergeSort() {
-        const animations = getMergeSortAnimations(mainArray);
+      const animations = getMergeSortAnimations(mainArray);
 
-        for (let i = 0; i < animations.length; i++) {   // Loop through all animation steps
-          const arrayBars = document.getElementsByClassName('element-bar');   // Get all element bar DOM elements
-          const isColorChange = i % 3 !== 2;
-          if (isColorChange) {
-            const [barOneIdx, barTwoIdx] = animations[i];
+      for (let i = 0; i < animations.length; i++) {   // Loop through all animation steps
+        const arrayBars = document.getElementsByClassName('element-bar');   // Get all element bar DOM elements
+        const isColorChange = i % 3 !== 2;
+        if (isColorChange) {
+          const [barOneIdx, barTwoIdx] = animations[i];
+          const barOneStyle = arrayBars[barOneIdx].style;
+          const barTwoStyle = arrayBars[barTwoIdx].style;
+          const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+            barTwoStyle.backgroundColor = color;
+          }, i * ANIMATION_SPEED_MS);
+        } else {
+          setTimeout(() => {
+            const [barOneIdx, newHeight] = animations[i];
             const barOneStyle = arrayBars[barOneIdx].style;
-            const barTwoStyle = arrayBars[barTwoIdx].style;
-            const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-            setTimeout(() => {
-              barOneStyle.backgroundColor = color;
-              barTwoStyle.backgroundColor = color;
-            }, i * ANIMATION_SPEED_MS);
-          } else {
-            setTimeout(() => {
-              const [barOneIdx, newHeight] = animations[i];
-              const barOneStyle = arrayBars[barOneIdx].style;
-              barOneStyle.height = `${newHeight}px`;
-            }, i * ANIMATION_SPEED_MS);
-          }
+            barOneStyle.height = `${newHeight}px`;
+          }, i * ANIMATION_SPEED_MS);
         }
+      }
     }
 
     function heapSort() {
@@ -237,7 +238,29 @@ export default function AlgorithmVisualizer() {
     }
 
     function quickSort() {
+      const animations = getQuickSortAnimations(mainArray);
+      console.log(animations);
 
+      for (let i = 0; i < animations.length; i++) {   // Loop through all animation steps
+        const arrayBars = document.getElementsByClassName('element-bar');   // Get all element bar DOM elements
+        const isColorChange = animations[i][2] === "compare" || animations[i][2] === "uncompare";
+        if (isColorChange) {
+          const [barOneIdx, barTwoIdx] = animations[i].slice(0, 2);
+          const barOneStyle = arrayBars[barOneIdx].style;
+          const barTwoStyle = arrayBars[barTwoIdx].style;
+          const color = animations[i][2] === "compare" ? SECONDARY_COLOR : PRIMARY_COLOR;
+          setTimeout(() => {
+            barOneStyle.backgroundColor = color;
+            barTwoStyle.backgroundColor = color;
+          }, i * ANIMATION_SPEED_MS);
+        } else {
+          setTimeout(() => {
+            const [barOneIdx, newHeight] = animations[i].slice(0, 2);
+            const barOneStyle = arrayBars[barOneIdx].style;
+            barOneStyle.height = `${newHeight}px`;
+          }, i * ANIMATION_SPEED_MS);
+        }
+      }
     }
 
     function radixSort() {
