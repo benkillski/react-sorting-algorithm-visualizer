@@ -8,7 +8,8 @@ import {
         getQuickSortAnimations,
         getRadixSortAnimations,
         getCountingSortAnimations,
-        getBucketSortAnimations
+        getBucketSortAnimations,
+        getShellSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -281,7 +282,7 @@ export default function AlgorithmVisualizer() {
     }
 
     function shellSort() {
-
+      const animations = getShellSortAnimations(mainArray);
     }
 
     function combSort() {
