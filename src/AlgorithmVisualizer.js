@@ -5,7 +5,10 @@ import {
         getInsertionSortAnimations, 
         getMergeSortAnimations,
         getHeapSortAnimations,
-        getQuickSortAnimations
+        getQuickSortAnimations,
+        getRadixSortAnimations,
+        getCountingSortAnimations,
+        getBucketSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -34,7 +37,7 @@ const ALGORITHM_OPTIONS = [
 ];
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 100;
+const ANIMATION_SPEED_MS = 1;
 
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 200;
@@ -263,16 +266,18 @@ export default function AlgorithmVisualizer() {
       }
     }
 
+    //TODO: NEED TO FINISH
     function radixSort() {
-        
+      const animations = getRadixSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function countingSort() {
-
+      const animations = getCountingSortAnimations(mainArray);
     }
 
     function bucketSort() {
-        
+      const animations = getBucketSortAnimations(mainArray);
     }
 
     function shellSort() {
