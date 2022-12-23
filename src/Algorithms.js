@@ -425,7 +425,7 @@ export function getShellSortAnimations(array) {
 }
 
 function shellSortHelper(array, animations) {
-  let n = arr.length;
+  let n = array.length;
 
   // Start with a big gap, then reduce the gap
   for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
@@ -439,20 +439,72 @@ function shellSortHelper(array, animations) {
       // add a[i] to the elements that have been gap
       // sorted save a[i] in temp and make a hole at
       // position i
-      let temp = arr[i];
+      let temp = array[i];
 
       // shift earlier gap-sorted elements up until
       // the correct location for a[i] is found
       let j;
-      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-        arr[j] = arr[j - gap];
+      for (j = i; j >= gap && array[j - gap] > temp; j -= gap)
+        array[j] = array[j - gap];
 
       // put temp (the original a[i]) in its correct
       // location
-      arr[j] = temp;
+      array[j] = temp;
     }
   }
-  return arr;
+  return array;
+}
+
+
+
+//TODO: NEED TO FINISH
+export function getCombSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  combSortHelper(array, animations);
+  return animations;
+}
+
+function combSortHelper(array, animations) {
+  let n = array.length;
+
+  // initialize gap
+  let gap = n;
+
+  // Initialize swapped as true to
+  // make sure that loop runs
+  let swapped = true;
+
+  // Keep running while gap is more than
+  // 1 and last iteration caused a swap
+  while (gap != 1 || swapped == true) {
+    // Find next gap
+    gap = getNextGap(gap);
+
+    // Initialize swapped as false so that we can
+    // check if swap happened or not
+    swapped = false;
+
+    // Compare all elements with current gap
+    for (let i = 0; i < n - gap; i++) {
+      if (array[i] > array[i + gap]) {
+        // Swap arr[i] and arr[i+gap]
+        swap(array, i, i + gap, animations);
+
+        // Set swapped
+        swapped = true;
+      }
+    }
+  }
+}
+
+// To find gap between elements
+function getNextGap(gap) {
+  // Shrink gap by Shrink factor
+  gap = parseInt((gap * 10) / 13, 10);
+  if (gap < 1)
+    return 1;
+  return gap;
 }
 
 

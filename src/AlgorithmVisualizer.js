@@ -9,7 +9,8 @@ import {
         getRadixSortAnimations,
         getCountingSortAnimations,
         getBucketSortAnimations,
-        getShellSortAnimations
+        getShellSortAnimations,
+        getCombSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -286,7 +287,7 @@ export default function AlgorithmVisualizer() {
     }
 
     function combSort() {
-        
+      const animations = getCombSortAnimations(mainArray);
     }
 
     function pigeonholeSort() {
