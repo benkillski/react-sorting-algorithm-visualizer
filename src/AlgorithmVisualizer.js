@@ -11,7 +11,8 @@ import {
         getBucketSortAnimations,
         getShellSortAnimations,
         getCombSortAnimations,
-        getPigeonholeSortAnimations
+        getPigeonholeSortAnimations,
+        getCycleSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -299,8 +300,9 @@ export default function AlgorithmVisualizer() {
       const animations = getPigeonholeSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function cycleSort() {
-        
+      const animations = getCycleSortAnimations(mainArray);
     }
 
     function timSort() {
