@@ -377,12 +377,41 @@ function countingSortHelper(array, animations) {
 export function getBucketSortAnimations(array) {
   const animations = [];
   if (array.length <= 1) return array;
-  bucketSortHelper(array, animations);
+  bucketSortHelper(array, array.length, animations);
   return animations;
 }
 
-function bucketSortHelper(array, animations) {
-  
+function bucketSortHelper(array, n, animations) {
+  if (n <= 0)
+    return;
+
+  // 1) Create n empty buckets       
+  let buckets = new Array(n);
+
+  for (let i = 0; i < n; i++) {
+    buckets[i] = [];
+  }
+
+  // 2) Put array elements in different buckets
+  for (let i = 0; i < n; i++) {
+    let idx = array[i] * n;
+    buckets[Math.floor(idx)].push(array[i]);
+  }
+
+  // 3) Sort individual buckets
+  for (let i = 0; i < n; i++) {
+    buckets[i].sort(function (a, b) {
+      return a - b;
+    });
+  }
+
+  // 4) Concatenate all buckets into arr[]
+  let index = 0;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < buckets[i].length; j++) {
+      array[index++] = buckets[i][j];
+    }
+  }
 }
 
 
