@@ -10,7 +10,8 @@ import {
         getCountingSortAnimations,
         getBucketSortAnimations,
         getShellSortAnimations,
-        getCombSortAnimations
+        getCombSortAnimations,
+        getPigeonholeSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -278,20 +279,24 @@ export default function AlgorithmVisualizer() {
       const animations = getCountingSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function bucketSort() {
       const animations = getBucketSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function shellSort() {
       const animations = getShellSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function combSort() {
       const animations = getCombSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function pigeonholeSort() {
-
+      const animations = getPigeonholeSortAnimations(mainArray);
     }
 
     function cycleSort() {

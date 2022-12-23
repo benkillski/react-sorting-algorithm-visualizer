@@ -509,6 +509,45 @@ function getNextGap(gap) {
 
 
 
+//TODO: NEED TO FINISH
+export function getPigeonholeSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  pigeonholeSortHelper(array, array.length, animations);
+  return animations;
+}
+
+function pigeonholeSortHelper(array, n, animations) {
+  let min = array[0];
+  let max = array[0];
+  let range, i, j, index;
+
+  for (let a = 0; a < n; a++) {
+    if (array[a] > max)
+      max = array[a];
+    if (array[a] < min)
+      min = array[a];
+  }
+
+  range = max - min + 1;
+  let phole = [];
+
+  for (i = 0; i < n; i++)
+    phole[i] = 0;
+
+  for (i = 0; i < n; i++)
+    phole[array[i] - min]++;
+
+
+  index = 0;
+
+  for (j = 0; j < range; j++)
+    while (phole[j]-- > 0)
+      array[index++] = j + min;
+}
+
+
+
 // A utility function to get maximum value in arr[]
 function getMax(array, n, animations) {
   let mx = array[0];
