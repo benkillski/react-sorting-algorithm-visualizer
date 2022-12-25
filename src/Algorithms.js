@@ -903,28 +903,61 @@ function pancakeSortHelper(array, n, animations) {
 // Returns index of the
 // maximum element in
 // arr[0..n-1]
-function pancakeSortFindMax(array, n)
-{
-    let mi, i;
-    for (mi = 0, i = 0; i < n; ++i)
-        if (array[i] > array[mi])
-            mi = i;
-                
-    return mi;
+function pancakeSortFindMax(array, n) {
+  let mi, i;
+  for (mi = 0, i = 0; i < n; ++i)
+    if (array[i] > array[mi])
+      mi = i;
+
+  return mi;
 }
 
 // Reverses arr[0..i]
-function pancakeSortFlip(array, i)
-{
-    let temp, start = 0;
-    while (start < i)
-    {
-        temp = array[start];
-        array[start] = array[i];
-        array[i] = temp;
-        start++;
-        i--;
-    }
+function pancakeSortFlip(array, i) {
+  let temp, start = 0;
+  while (start < i) {
+    temp = array[start];
+    array[start] = array[i];
+    array[i] = temp;
+    start++;
+    i--;
+  }
+}
+
+
+
+//TODO: NEED TO FINISH
+export function getBogoSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  bogoSortHelper(array, array.length, animations);
+  return animations;
+}
+
+function bogoSortHelper(array, n, animations) {
+  // if array is not sorted then shuffle
+  // the array again
+  while (!bogoSortIsSorted(array, n))
+    array = bogoSortShuffle(array, n);
+  return array;
+}
+
+// To generate permutation of the array
+function bogoSortShuffle(array, n) {
+  var i, j = n;
+  for (i = 0; i < n; i++) {
+    var ind = Math.floor(Math.random() * n);
+    swap(array, j - i - 1, ind);
+  }
+  return array;
+}
+
+// To check if array is sorted or not
+function bogoSortIsSorted(array, n) {
+  for (var i = 1; i < array.length; i++)
+    if (array[i] < array[i - 1])
+      return false;
+  return true;
 }
 
 

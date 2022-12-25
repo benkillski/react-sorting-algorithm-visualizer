@@ -16,7 +16,8 @@ import {
         getTimSortAnimations,
         getCocktailSortAnimations,
         getBitonicSortAnimations,
-        getPancakeSortAnimations
+        getPancakeSortAnimations,
+        getBogoSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -331,7 +332,7 @@ export default function AlgorithmVisualizer() {
 
     //TODO: NEED TO FINISH
     function bogoSort() {
-
+      const animations = getBogoSortAnimations(mainArray);
     }
 
     //TODO: NEED TO FINISH
