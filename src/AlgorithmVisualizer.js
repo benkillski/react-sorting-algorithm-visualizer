@@ -12,7 +12,8 @@ import {
         getShellSortAnimations,
         getCombSortAnimations,
         getPigeonholeSortAnimations,
-        getCycleSortAnimations
+        getCycleSortAnimations,
+        getTimSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -305,8 +306,9 @@ export default function AlgorithmVisualizer() {
       const animations = getCycleSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function timSort() {
-
+      const animations = getTimSortAnimations(mainArray);
     }
 
     function cocktailSort() {
