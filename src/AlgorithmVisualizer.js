@@ -13,7 +13,8 @@ import {
         getCombSortAnimations,
         getPigeonholeSortAnimations,
         getCycleSortAnimations,
-        getTimSortAnimations
+        getTimSortAnimations,
+        getCocktailSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -312,7 +313,7 @@ export default function AlgorithmVisualizer() {
     }
 
     function cocktailSort() {
-        
+      const animations = getCocktailSortAnimations(mainArray);
     }
 
     function bitonicSort() {
