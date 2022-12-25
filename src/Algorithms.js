@@ -807,6 +807,61 @@ function cocktailSortHelper(array, animations) {
 
 
 
+//TODO: NEED TO FINISH
+export function getBitonicSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  bitonicSortHelper(array, 0, array.length, 1, animations);
+  return animations;
+}
+
+function bitonicSortHelper(array, low, cnt, dir, animations) {
+  if (cnt > 1) {
+    var k = parseInt(cnt / 2);
+
+    // sort in ascending order since dir here is 1
+    bitonicSortHelper(array, low, k, 1, animations);
+
+    // sort in descending order since dir here is 0
+    bitonicSortHelper(array, low + k, k, 0, animations);
+
+    // Will merge whole sequence in ascending order
+    // since dir=1.
+    bitonicMerge(array, low, cnt, dir, animations);
+  }
+}
+
+/* It recursively sorts a bitonic sequence in ascending
+    order, if dir = 1, and in descending order otherwise
+    (means dir=0). The sequence to be sorted starts at
+    index position low, the parameter cnt is the number
+    of elements to be sorted.*/
+function bitonicMerge(array, low, cnt, dir, animations) {
+  if (cnt > 1) {
+    var k = parseInt(cnt / 2);
+    for (var i = low; i < low + k; i++)
+      compAndSwap(array, i, i + k, dir, animations);
+    bitonicMerge(array, low, k, dir, animations);
+    bitonicMerge(array, low + k, k, dir, animations);
+  }
+}
+
+/* The parameter dir indicates the sorting direction,
+    ASCENDING or DESCENDING; if (a[i] > a[j]) agrees
+    with the direction, then a[i] and a[j] are
+    interchanged. */
+function compAndSwap(array, i, j, dir, animations) {
+  if ((array[i] > array[j] && dir === 1) ||
+    (array[i] < array[j] && dir === 0)) {
+    // Swapping elements
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
+
+
 // A utility function to get maximum value in arr[]
 function getMax(array, n, animations) {
   let mx = array[0];
