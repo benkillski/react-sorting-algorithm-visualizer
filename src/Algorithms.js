@@ -862,6 +862,73 @@ function compAndSwap(array, i, j, dir, animations) {
 
 
 
+//TODO: NEED TO FINISH
+export function getPancakeSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  pancakeSortHelper(array, array.length, animations);
+  return animations;
+}
+
+function pancakeSortHelper(array, n, animations) {
+  // Start from the complete
+  // array and one by one
+  // reduce current size by one
+  for (let curr_size = n; curr_size > 1; --curr_size) {
+
+    // Find index of the
+    // maximum element in
+    // arr[0..curr_size-1]
+    let mi = pancakeSortFindMax(array, curr_size);
+
+    // Move the maximum element
+    // to end of current array
+    // if it's not already at
+    // the end
+    if (mi != curr_size - 1) {
+      // To move at the end,
+      // first move maximum
+      // number to beginning
+      pancakeSortFlip(array, mi);
+
+      // Now move the maximum
+      // number to end by
+      // reversing current array
+      pancakeSortFlip(array, curr_size - 1);
+    }
+  }
+  return 0;
+}
+
+// Returns index of the
+// maximum element in
+// arr[0..n-1]
+function pancakeSortFindMax(array, n)
+{
+    let mi, i;
+    for (mi = 0, i = 0; i < n; ++i)
+        if (array[i] > array[mi])
+            mi = i;
+                
+    return mi;
+}
+
+// Reverses arr[0..i]
+function pancakeSortFlip(array, i)
+{
+    let temp, start = 0;
+    while (start < i)
+    {
+        temp = array[start];
+        array[start] = array[i];
+        array[i] = temp;
+        start++;
+        i--;
+    }
+}
+
+
+
 // A utility function to get maximum value in arr[]
 function getMax(array, n, animations) {
   let mx = array[0];

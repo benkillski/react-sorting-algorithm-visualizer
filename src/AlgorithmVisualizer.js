@@ -15,7 +15,8 @@ import {
         getCycleSortAnimations,
         getTimSortAnimations,
         getCocktailSortAnimations,
-        getBitonicSortAnimations
+        getBitonicSortAnimations,
+        getPancakeSortAnimations
 } from "./Algorithms";
 import {useState, useEffect, useCallback} from "react";
 
@@ -323,22 +324,27 @@ export default function AlgorithmVisualizer() {
       const animations = getBitonicSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function pancakeSort() {
-        
+      const animations = getPancakeSortAnimations(mainArray);
     }
 
+    //TODO: NEED TO FINISH
     function bogoSort() {
 
     }
 
+    //TODO: NEED TO FINISH
     function gnomeSort() {
         
     }
 
+    //TODO: NEED TO FINISH
     function stoogeSort() {
 
     }
 
+    //TODO: NEED TO FINISH
     function brickSort() {
         
     }
