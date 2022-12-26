@@ -962,6 +962,35 @@ function bogoSortIsSorted(array, n) {
 
 
 
+//TODO: NEED TO FINISH
+export function getGnomeSortAnimations(array) {
+  const animations = [];
+  if (array.length <= 1) return array;
+  gnomeSortHelper(array, array.length, animations);
+  return animations;
+}
+
+function gnomeSortHelper(array, n, animations) {
+  let index = 0;
+
+  while (index < n) {
+    if (index == 0)
+      index++;
+    if (array[index] >= array[index - 1])
+      index++;
+    else {
+      let temp = 0;
+      temp = array[index];
+      array[index] = array[index - 1];
+      array[index - 1] = temp;
+      index--;
+    }
+  }
+  return;
+}
+
+
+
 // A utility function to get maximum value in arr[]
 function getMax(array, n, animations) {
   let mx = array[0];
