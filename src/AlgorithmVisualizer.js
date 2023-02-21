@@ -28,7 +28,7 @@ const ALGORITHM_OPTIONS = [
   "Insertion",
   "Merge",
   "Heap",
-  "Quick",
+  "Quick"/*,
   "Radix",
   "Counting",
   "Bucket",
@@ -43,7 +43,7 @@ const ALGORITHM_OPTIONS = [
   "Bogo",
   "Gnome",
   "Stooge",
-  "Brick"
+  "Brick"*/
 ];
 
 // Change this value for the speed of the animations.
